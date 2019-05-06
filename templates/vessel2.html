@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% block page-main %}
+    <h1 class="page-header"  xmlns="http://www.w3.org/1999/html">洋山四期自动化集装箱码头
+        <small>自定义船舶结构</small>
+    </h1>
+    {% csrf_token %}
+    <div class="panel panel-primary" id="content">
+        <div class="panel-heading">自定义船舶结构</div>
+
+
+        <form class="form-horizontal" action="/vessel3/" method="post">
+
+
+            <div class="form-group has-success has-feedback" style="padding:10px;margin:0 auto">
+                <label class="control-label" for="inputGroupSuccess1"
+                       style="padding:10px;font-size: 18px">请输入船舶名称:</label>
+                <span id="e1"></span>
+
+                <div class="input-group col-lg-3">
+                    <span class="input-group-addon">@</span>
+                    <input type="text" class="form-control" id="vesName"
+                           aria-describedby="inputGroupSuccess1Status" name="vesName"
+                           placeholder="请输入船舶名称...">
+                </div>
+                <span id="inputGroupSuccess1Status" class="sr-only">(success)</span>
+            </div>
+
+            <div class="form-group has-success has-feedback" style="padding:10px;margin:0 auto">
+                <label class="control-label" for="inputGroupSuccess1"
+                       style="padding:10px;font-size: 18px">请输入船舶长度:</label>
+                <div class="input-group col-lg-3">
+                    <span class="input-group-addon">@</span>
+                    <input type="text" class="form-control" id="vesLeng"
+                           aria-describedby="inputGroupSuccess1Status" name="vesLeng"
+                           placeholder="请输入船舶长度...">
+                </div>
+                <span id="inputGroupSuccess1Status" class="sr-only">(success)</span>
+            </div>
+
+            <div class="form-group has-success has-feedback" style="padding:10px;margin:0 auto">
+                <label class="control-label" for="inputGroupSuccess1"
+                       style="padding:10px;font-size: 18px">请输入20尺贝位数量:</label>
+                <div class="input-group col-lg-3">
+                    <span class="input-group-addon">@</span>
+                    <input type="text" class="form-control" id="bayNum"
+                           aria-describedby="inputGroupSuccess1Status" name="bayNum"
+                           placeholder="请输入20尺贝位数量...">
+                </div>
+                <span id="inputGroupSuccess1Status" class="sr-only">(success)</span>
+            </div>
+
+            <div class="form-group has-success has-feedback" style="padding:10px;margin:0 auto;margin-left: 330px;margin-top: -100px">
+                <label class="control-label" for="inputGroupSuccess1"
+                       style="padding:10px;font-size: 18px">请输入机舱位置:</label>
+                <div class="input-group col-lg-3">
+                    <span class="input-group-addon">@</span>
+                    <input type="text" class="form-control" id="engRom"
+                           aria-describedby="inputGroupSuccess1Status" name="engRom"
+                           placeholder="请输入机舱位置...">
+                </div>
+                <span id="inputGroupSuccess1Status" class="sr-only">(success)</span>
+            </div>
+
+
+            <div class="form-group has-success has-feedback" style="padding:10px;margin-left: 330px;margin-top: -300px;position: absolute">
+                <label class="control-label" for="inputGroupSuccess1"
+                       style="padding:10px;font-size: 18px">请输入机舱宽度:</label>
+                <div class="input-group col-lg-3">
+                    <span class="input-group-addon">@</span>
+                    <input type="text" class="form-control" id="engRomWid"
+                           aria-describedby="inputGroupSuccess1Status" name="engRomWid"
+                           placeholder="请输入机舱宽度...">
+                </div>
+                <span id="inputGroupSuccess1Status" class="sr-only">(success)</span>
+            </div>
+
+
+            <div class="form-group has-success has-feedback">
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-success"
+                            style="width:100px;margin-left:570px;margin-top:10px;font-size: 18px">确认提交
+                    </button>
+                </div>
+            </div>
+
+            {#            <div class="col-lg-3" style="margin-left: 30px">#}
+            {#                <div class="input-group" style="margin-top: 20px;margin-left:30px">#}
+            {#                    <span class="input-group-addon"><input type="radio" aria-label="..."></span>#}
+            {#                    <input type="text" id="bayNum" class="form-control" name="bayNum"#}
+            {#                           placeholder="请输入贝位数量... ">#}
+            {#                </div><!-- /input-group -->#}
+            {#            </div><!-- /.col-lg-6 -->#}
+
+            {#            <div class="col-lg-3" style="margin-left: 30px">#}
+            {#                <div class="input-group" style="margin-top: 20px;margin-left:30px">#}
+            {#                    <span class="input-group-addon"><input type="radio" aria-label="..."></span>#}
+            {#                    <input type="text" id="engRom" class="form-control" name="engRom"#}
+            {#                           placeholder="请输入机舱位置... ">#}
+            {#                </div><!-- /input-group -->#}
+            {#            </div><!-- /.col-lg-6 -->#}
+
+
+            {#            <div class="subm">#}
+            {#                <input type="button" class="subm" id="nm_submit" value="提交">#}
+            {#            </div>#}
+
+
+            {#            <div class="form-group">#}
+            {#                <div class="col-sm-offset-2 col-sm-6">#}
+            {#                    <button type="submit" class="btn btn-success"#}
+            {#                            style="margin-left: 630px;margin-top:-30px;position: absolute">提交#}
+            {#                    </button>#}
+            {#                </div>#}
+            {#            </div>#}
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block page-css %}
+    <link rel="stylesheet" href="/static/vessel2.css">
+{% endblock %}
+
+{% block page-js %}
+
+    <script>
+        $("#vesName").on("input", function () {
+            // 取到input框的值
+            // console.log(this);
+            var $i1Ele = $(this);
+            var id = $i1Ele.val();
+            // 去掉i1后面的span
+            $("#e1").text("");
+            // 利用ajax请求偷偷发到后端
+            $.ajax({
+                url: "/check_vesName/",
+                type: "post",
+                data: {"id": id},
+                datatype: "json",
+                success: function (arg) {
+                    // 把span标签放到i1的后面
+                    console.log(arg);
+                    if(arg === "该船舶名称已经存在！"){
+                        $("#e1").text(arg).css("color", "red");
+                    }else {
+                        $("#e1").text(arg).css("color", "blue");
+                    }
+{#                    $("#e1").text(arg).css("color", "red");#}
+
+                }
+            })
+        })
+    </script>
+
+{% endblock %}
+
+{% block new_Ves2 %}
+    active
+{% endblock %}

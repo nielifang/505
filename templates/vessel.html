@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block page-main %}
+    <h1 class="page-header" style="margin-top: 30px">洋山四期自动化集装箱码头
+        <small>自定义船舶结构</small>
+    </h1>
+    {% csrf_token %}
+    <div class="panel panel-primary" id="content">
+        <div class="panel-heading">自定义船舶结构</div>
+
+        <button type="submit" id="preview" class="btn btn-success" onclick=" myfunction()" style="width: 80px">
+            <a href="http://127.0.0.1:8006/vessel/"><i class="fa fa-refresh" aria-hidden="true"
+                                                       style="font-style: normal;font-size: 16px;color: whitesmoke;padding:2px">
+                刷新</i></a>
+            {#            <i class="fa fa-search" aria-hidden="true">刷新</i>#}
+        </button>
+
+        <button type="button" id="btn" class="btn1">0</button>
+
+        <button type="button" id="btn20" class="btn1">20</button>
+
+        <button type="button" id="btn40" class="btn1">40</button>
+
+
+        <div class="cont" onmousemove="movediv(event)" onmouseup="obj=0">
+            <div>
+                <input type="button" class="btn-block" id="top" style="width: 110px;"
+                       onclick="show_hide_div2(mdiv2)" value="生成上层建筑"/>
+            </div>
+            <div id="mdiv2"
+                 style="position:absolute; z-index: 100; visibility:hidden;top:178px; left:280px;background:#E9F0F8; border:1px solid #AFB799;">
+                <div class="btn-block" onmousedown="finddiv2(event,mdiv2)" style="cursor:move">
+                    <div class="top" style="background-color:gray " align="right">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="content" id="box"></div>
+
+
+            <div class="panel1" id="ui-Resizable-1"></div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+{% block page-css %}
+    <link rel="stylesheet" href="/static/vessel.css">
+{% endblock %}
+
+{% block page-js %}
+
+    <script src="/static/vessel.js"></script>
+    <script src="/static/mask.js"></script>
+    <script src="/static/content_drag.js"></script>
+
+
+{% endblock %}
+
+{% block new_Ves %}
+    active
+{% endblock %}

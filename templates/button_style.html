@@ -1,0 +1,53 @@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button  type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">查询集装箱信息</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>箱位</th>
+                        <th>所属船舶</th>
+                        <th>尺寸</th>
+                        <th>提箱人</th>
+                        <th>起运港</th>
+                        <th>卸货港</th>
+                        <th>目的港</th>
+                        <th>货特</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for con in aacontainer %}
+                        <tr>
+                            <td>{{ con.ContID }}</td>
+                            <td>{{ con.Vessel.name }}</td>
+                            <td>{{ con.Size }}</td>
+                            <td>{{ con.Owner }}</td>
+                            <td>{{ con.StaPort }}</td>
+                            <td>{{ con.UnloadPort }}</td>
+                            <td>{{ con.DesPort }}</td>
+                            <td>{{ con.GForce }}</td>
+
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="8" class="text-center">暂时没有数据哦~~~~~~</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

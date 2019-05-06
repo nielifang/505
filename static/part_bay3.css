@@ -1,0 +1,27 @@
+.table td {
+    border: 1px solid grey;
+}
+
+/*20尺*/
+.active {
+    background-color: lightblue !important;
+    color: white;
+}
+
+/*40尺*/
+.another_active {
+    background-color: green;
+    color: white;
+}
+
+/*无箱*/
+.td_active {
+    background-color: floralwhite;
+    color: white;
+}
+
+#content1 {
+    width: auto;
+    height: 200px;
+
+}

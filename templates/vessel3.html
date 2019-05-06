@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+
+{% block page-main %}
+    <h1 class="page-header" style="margin-top: 30px">洋山四期自动化集装箱码头
+        <small>自定义船舶结构</small>
+    </h1>
+    {% csrf_token %}
+    <div class="panel panel-success" id="content">
+        <div class="panel-heading" style="font-size: 20px">自定义船舶结构</div>
+
+        <div class="col-sm-offset-2 col-sm-6" style="margin-top: -10px;margin-left: 670px">
+            <button type="button" class="btn btn-success" id="confirm"
+                    style="margin-left: 120px;margin-top:30px;position: absolute">确认生成船舶结构
+            </button>
+        </div>
+
+
+        <div class="bay_table" style="width:{{ vesLeng }}px;height:100px;margin-left: 45px;margin-top: 100px;">
+            <div class="safe">
+                {#                {{ htmls|safe }}#}
+            </div>
+
+            <div class="panel1" id="ui-Resizable-1"></div>
+        </div>
+
+        <div class="top" id="top"
+             style="background-color:gray;margin-left: {{ engRomMar }}px;height: 250px;width:{{ engRomWid }}px ;margin-top: -190px"
+             align="right"></div>
+    </div>
+
+
+    <div class="panel panel-success" style="height: 300px">
+        <div class="panel-heading" style="font-size: 20px">船舶信息</div>
+        <div class="panel-body">
+            <div class="list-group  col-sm-6 " id="ves_info">
+                <a href="#" class="list-group-item list-group-item-info">船舶名称： SMU{{ vesName }}</a>
+                <a href="#" class="list-group-item list-group-item-success" id="velLengInfo">船舶长度:
+                    &nbsp;{{ vesLeng }}</a>
+                <a href="#" class="list-group-item list-group-item-warning">20尺贝位数量： {{ bayNum }}</a>
+                <a href="#" class="list-group-item list-group-item-danger" id="foNumInfo">40尺贝位数量: 0</a>
+            </div>
+            <div class="list-group  col-sm-6 " id="ves_info2">
+                <a href="#" class="list-group-item list-group-item-info">上层建筑的宽度：{{ engRomWid }}</a>
+                <a href="#" class="list-group-item list-group-item-success">上层建筑的位置：&nbsp;{{ engRomMar }}</a>
+                <a href="#" class="list-group-item list-group-item-warning" id="BJtime">北京时间：</a>
+                <a href="#" class="list-group-item list-group-item-danger">40尺贝位数量: 0</a>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+{% block page-css %}
+    <link rel="stylesheet" href="/static/vessel2.css">
+{% endblock %}
+
+{% block page-js %}
+    <script>
+        var vesName ={{ vesName }};
+        var bayNum ={{ bayNum }};
+        var engRomWid = {{ engRomWid }};
+        var twBayNum = bayNum;
+        var foBayNum = 0;
+        var engRoomPos ={{ engRomMar }};
+        var twBayId = [];
+        var foBayId = [];
+        var FotBayCom = ""; //      40尺贝所在位置
+        var timeFunName = null;
+
+
+        function createBay() {
+            var a = new Date();
+            var t = a.toLocaleString();
+            $("#BJtime").html("当前时间：" + t);
+
+            var bayDic =
+            {{ bayDic }}
+            for (var id in bayDic) {
+                var marLeft = bayDic[id];
+                var x = "<button type='button' id=" + id + " class='btn btn-info bayTw'style='width:40px;height:30px;margin-top:-30px;margin-left:" + marLeft + "px;position:fixed'></button>";
+                $(".safe").append(x);
+
+                twBayId.push(id);
+                FotBayCom = FotBayCom + '0'   //将40尺贝所在位置全部设为0
+
+            }
+            console.log(FotBayCom);
+        }
+        createBay();
+
+        $(".bayTw").click(function () {
+            // 取消上次延时未执行的方法
+            clearTimeout(timeFunName);
+
+            var bay_id = $(this).attr("id");
+            var x = parseInt(bay_id);
+            twId = x + 1;
+            var y = x + 2;
+            var w = $(this).css("margin-left");
+            var intW = w.substring(0, w.length - 2);
+            var inw = parseInt(intW);
+            var marL = inw + 40;
+
+            timeFunName = setTimeout(function () {
+                if ($(".bayTw").css("width") === "40px") {
+                    var tw = '<button type="button" id=' + twId + ' class="btn btn-info bayFo" style="width:80px;height:30px;margin-top:-60px;margin-left:' + intW + 'px;position:fixed;background-color:green"></button>';
+                    $(".safe").append(tw);
+
+                    foBayId.push((x + 1).toString());     //增加40尺贝
+                    FotBayCom = FotBayCom.split('');    //将字符串转化为列表
+                    FotBayCom.splice(Math.floor(x / 2), 2, "1", "1"); //将0转化为1
+                    FotBayCom = FotBayCom.join('');   //转化为字符串
+                    foBayNum += 1;
+
+                    $(".bayFo").click(function () {
+                        {#                    alert(666);#}
+                        var Fobay_id = $(this).attr("id");
+                        fo = parseInt(Fobay_id);
+                        $(this).remove();
+                        foBayNum -= 1;  //40尺数减1
+                        foBayId.splice(Math.floor(fo / 4), 1);    //删除40尺贝
+                        FotBayCom = FotBayCom.split('');    //字符串转化为列表
+                        FotBayCom.splice(Math.floor(fo / 2) - 1, 2, "0", "0");   // 40尺贝位置转化为00
+                        FotBayCom = FotBayCom.join('');     //列表转化为字符串
+
+                        $("#foNumInfo").html("40尺贝位数量:" + foBayNum);
+                        $("#velLengInfo").html("船舶长度:" + vesLen);
+                    });
+                    $("#foNumInfo").html("40尺贝位数量:" + foBayNum);
+                    $("#velLengInfo").html("船舶长度:" + vesLen);
+                }
+            }, 300)
+        });
+
+        $(".bayTw").dblclick(function () {
+            clearTimeout(timeFunName);
+
+            if ($(".bayTw").css("height") === "30px") {
+                this.style.height = "60px";
+                this.style.marginTop = "-60px";
+            } else {
+                this.style.height = "30px";
+                this.style.marginTop = "-30px";
+            }
+        });
+
+
+        $("#confirm").click(function () {
+
+            var vesLen = document.getElementById('ui-Resizable-1').style.width;
+            vesLen = vesLen.substring(0, vesLen.length - 2);
+            vesLen = parseInt(vesLen);
+
+            engRomPos = parseInt(engRoomPos);
+            {#            alert(engRomMar);#}
+            $.ajax({
+                url: "/createVes/",
+                type: 'post',
+                data: {
+                    vesName: vesName,
+                    engRomWid: engRomWid,
+                    engRomPos: engRomPos,
+                    vesLen: vesLen,
+                    TweBayNum: twBayNum,
+                    FotBayNum: foBayNum,
+                    twBayList: JSON.stringify(twBayId),
+                    foBayList: JSON.stringify(foBayId),
+                    FotBayCom: FotBayCom
+                },
+                success: function () {
+                    window.location.href = "http://127.0.0.1:8006/Ves/";
+
+                }
+            });
+        });
+
+
+    </script>
+    <script src="/static/vessel.js"></script>
+    {#    <script src="/static/mask.js"></script>#}
+    <script src="/static/content_drag.js"></script>
+
+{% endblock %}

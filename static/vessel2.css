@@ -1,0 +1,93 @@
+#content{
+    height: 400px;
+
+}
+
+
+
+#top {
+    margin-left: 40px;
+    /*padding-top: 10px;*/
+    margin-top: 30px;
+    position: relative;
+}
+
+
+.panel1 {
+    position: relative;
+    margin-top: -1px;
+    margin-left: 10px;
+    border-top: 160px solid grey;
+    border-right: 80px solid transparent;
+    border-left: 80px solid transparent;
+    border-radius: 10px;
+
+}
+
+.bg {
+    /*height: 18px;*/
+    padding: 3px;
+    background: #147B95;
+    width: 30px;
+    height: 80px;
+}
+
+/*上层建筑*/
+.top {
+    /*height: 18px;*/
+    padding: 3px;
+    background: #3c3c3c ;
+    /*width: 60px;*/
+    height: 300px;
+    margin-top: 1px;
+    /*margin-left: 470px;*/
+    /*position: absolute;*/
+}
+
+table{
+    width: 300px;
+}
+
+
+.table th{
+    width: 20px;
+}
+
+.ui-Resizable-r-1 {
+    /* 右侧控制元素样式　*/
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 10px;
+    height: 100%;
+    /*background-color: red;*/
+    cursor: e-resize;
+}
+
+.ui-Resizable-b-1 {
+    /* 底边控制元素样式　*/
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 10px;
+    /*background-color: red;*/
+    cursor: s-resize;
+}
+
+.ui-Resizable-rb-1 {
+    /* 右下角控制元素样式　*/
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    width: 20px;
+    height: 20px;
+    /*background-color: red;*/
+    cursor: nw-resize;
+}
+
+
+
+
+
+

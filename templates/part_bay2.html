@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+
+{% include 'nav.html' %}
+
+{% block page-main %}
+
+    <h1 class="page-header" >洋山四期自动化集装箱码头
+        <small>贝位配载切面图</small>
+    </h1>
+    <!--面板 开始-->
+    {#    <div class="panel panel-primary">#}
+    {#    <div class="panel-heading">贝位贝内层信息</div>#}
+    <div class="panel-body">
+
+        <form class="form-horizontal" action="/bookCont/" method="post">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3" style="margin-left: 10px">
+                    <div class="panel panel-success">
+                        <div class="panel-heading" style="text-align: center;font-size: 20px">添加箱区信息</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group has-success has-feedback" style="padding:10px;margin-left: -30px;">
+                {#                <label for="name" class="col-sm-2 control-label">贝位号</label>#}
+                <label class="control-label" for="inputGroupSuccess1"
+                       style="font-size: 18px;margin-left: -260px">请选择船舶:</label>
+                <div class="col-sm-3">
+                    {#                    <span class="input-group-addon">@</span>#}
+                    <select class="form-control" id="VesName" name="VesName" style="margin-left: 120px">
+                        {% for ves in vesObj %}
+                            <option value="{{ ves.VesName }}"> {{ ves.VesName }}</option>
+                        {% endfor %}
+                    </select>
+
+                    {#                <span id="inputGroupSuccess1Status" class="sr-only">(success)</span>#}
+                </div>
+            </div>
+
+
+            <div class="form-group has-success has-feedback" style="padding:10px;margin-left: -30px;">
+                {#                <label for="name" class="col-sm-2 control-label">贝位号</label>#}
+                <label class="control-label" for="inputGroupSuccess1"
+                       style="font-size: 18px;margin-left: -260px">请选择贝位:</label>
+                <div class="col-sm-3">
+                    {#                <span class="input-group-addon">@</span>#}
+                    <select class="form-control" name="BayNo" style="margin-left: 120px" id="BayNo">
+                        {#                        {% for bay in bayNo %}#}
+                        {#                            <option value="{{ bay }}"> {{ bay }}</option>#}
+                        {#                        {% endfor %}#}
+                    </select>
+                    {#                <span id="inputGroupSuccess1Status" class="sr-only">(success)</span>#}
+                </div>
+            </div>
+
+            <div class="form-group has-success has-feedback " style="padding:10px;margin:0 auto">
+                <label class="control-label" for="inputGroupSuccess1"
+                       style="padding:10px;font-size: 18px">请输入列数:</label>
+                <div class="input-group  col-lg-3 spinner" data-trigger="spinner">
+                    <span class="input-group-addon">@</span>
+                    <input type="text" id="rowNum" name="rowNum" data-step="1" data-max="30" data-min="1"
+                           class="form-control text-center" value="12" data-rule="quantity">
+                    <div class="input-group-addon">
+                        <a href="javascript:;" class="spin-up" data-spin="up"><i class="fa fa-caret-up"></i></a>
+                        <a href="javascript:;" class="spin-down" data-spin="down"><i class="fa fa-caret-down"></i></a>
+                    </div>
+                    <span id="inputGroupSuccess1Status" class="sr-only">(success)</span>
+                </div>
+            </div>
+
+            <div class="form-group has-success has-feedback " style="padding:10px;margin:0 auto">
+                <label class="control-label" for="inputGroupSuccess1"
+                       style="padding:10px;font-size: 18px">请输入甲板层数:</label>
+                <div class="input-group  col-lg-3 spinner" data-trigger="spinner">
+                    <span class="input-group-addon">@</span>
+                    <input type="text" id="tierNum_up" name="tierNum_up" data-step="1" data-max="10" data-min="1"
+                           class="form-control text-center" value="5" data-rule="quantity">
+                    <div class="input-group-addon">
+                        <a href="javascript:; " class="spin-up" data-spin="up"><i class="fa fa-caret-up"></i></a>
+                        <a href="javascript:;" class="spin-down" data-spin="down"><i class="fa fa-caret-down"></i></a>
+                    </div>
+                    <span id="inputGroupSuccess1Status" class="sr-only">(success)</span>
+                </div>
+            </div>
+
+            <div class="form-group has-success has-feedback " style="padding:10px;margin:0 auto">
+                <label class="control-label" for="inputGroupSuccess1"
+                       style="padding:10px;font-size: 18px">请输入舱内层数:</label>
+                <div class="input-group  col-lg-3 spinner" data-trigger="spinner">
+                    <span class="input-group-addon">@</span>
+                    <input type="text" id="tierNum_down" name="tierNum_down" data-step="1" data-max="10" data-min="1"
+                           class="form-control text-center" value="3" data-rule="quantity">
+                    <div class="input-group-addon">
+                        <a href="javascript:;" class="spin-up" data-spin="up"><i class="fa fa-caret-up"></i></a>
+                        <a href="javascript:;" class="spin-down" data-spin="down"><i class="fa fa-caret-down"></i></a>
+                    </div>
+                    <span id="inputGroupSuccess1Status" class="sr-only">(success)</span>
+                </div>
+            </div>
+
+
+            <div class="form-group has-success has-feedback">
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-success"
+                            style="width:100px;margin-left:10px;margin-top:50px;font-size: 18px">确认提交
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div><!-- /.row -->
+    {#    </div>#}
+
+
+
+{% endblock %}
+
+{% block part_bay2 %}
+    active
+{% endblock %}
+
+
+{% block page-js %}
+
+    <script>
+        $("#VesName").on("input", function () {
+            var VesName = $(this).val();
+
+            $.ajax({
+                url: "/bayNo/",
+                type: "post",
+                data: {
+                    "VesName": VesName
+                },
+                success: function (data) {
+                    var bayList = data;
+                    console.log(bayList);
+                    var content = '';
+
+                    for (var i = 0; i < bayList.length; i++) {
+                        content += "<option value=" + bayList[i] + ">" + bayList[i] + "</option>"
+                    }
+
+                    $('select[name=BayNo]').append(content)
+                }
+            });
+        });
+        {#        $("#VesName").on("input", function () {#}
+
+        {#    $("#VesName").change(function () {#}
+        {#        var VesName = $(this).val();#}
+        {##}
+        {#        $.ajax({#}
+        {#            url: "/part_bay2/",#}
+        {#            type: "post",#}
+        {#            dataType: 'json',#}
+        {#            data: {#}
+        {#                "VesName": VesName#}
+        {#            },#}
+
+        {#        });#}
+        {#        })#}
+        {#        ;#}
+
+
+    </script>
+
+{% endblock %}
+
+{#{% block page-js %}#}
+{#    <script>#}
+{#        //为td绑定单击事件#}
+{#        function BindId() {#}
+{#            $(".item").click(function () {#}
+{#                alert(666);#}
+{#                //取箱预定#}
+{#                if ($(this).hasClass("active")) {#}
+{#                    $(this).removeClass("active").empty();#}
+{##}
+{#                }#}
+{#                //临时取消预定#}
+{#                else if ($(this).hasClass("td_active")) {#}
+{#                    $(this).removeClass("td_active");#}
+{##}
+{#                }#}
+{#                else {   //添加预定#}
+{#                    $(this).addClass("td_active");#}
+{##}
+{#                }#}
+{##}
+{#            })#}
+{#        }#}
+{##}
+{#        BindId();#}
+{#    </script>#}
+{#{% endblock %}#}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)https://v3.bootcss.com/examples/dashboard/ -->
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>洋山四期自动化集装箱码头</title>
+    <!-- Bootstrap core CSS -->
+
+
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/dashboard.css" rel="stylesheet">
+    <link href="/static/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/sweetalert/sweetalert.css">
+
+{#    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">#}
+
+    <style>
+        .sweet-alert > h2 {
+            padding-top: 15px;
+        }
+    </style>
+
+    <!--页面使用的自定义CSS-->
+
+    {% block page-css %}
+
+    {% endblock %}
+</head>
+
+<body>
+{% include 'nav.html' %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="{% block new_Ves %}{% endblock %}"><a href="/vessel/">自定义船舶结构一</a></li>
+                <li class="{% block new_Ves2 %}{% endblock %}"><a href="/vessel2/">自定义船舶结构二</a></li>
+                <li class="{% block part_bay %}{% endblock %}"><a href="/part_bay/">自定义船舶配载</a></li>
+                <li class="{% block part_bay2 %}{% endblock %}"><a href="/part_bay2/">自定义船舶配载2</a></li>
+                <li class="pp"><a href="/haha/">haha</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            {# 这是每个页面不同的部分 #}
+            {% block page-main %}
+
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+<script src="/static/setupajax.js"></script>
+<script src="/static/jquery-3.3.1.js"></script>
+<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/sweetalert/sweetalert.min.js"></script>
+<script src="/static/jquery.spinner.js"></script>
+
+
+{% block page-js %}
+
+{% endblock %}
+</body>
+</html>
